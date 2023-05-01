@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ cv.nom }} {{ cv.prenom }}</h2>
+        </div>
+        <div class="card-body">
+          <h3>Profil Professionnel</h3>
+          <p>{{ cv.resume_professionnel }}</p>
+          <hr>
+          <h3>Expériences Professionnelles</h3>
+          {% for experience in cv.experiences.all %}
+          <div class="mb-3">
+            <h4>{{ experience.poste }}</h4>
+            <p>{{ experience.employeur }} | {{ experience.date_debut }} - {{ experience.date_fin }}</p>
+            <ul>
+              {% for tache in experience.taches.all %}
+              <li>{{ tache.description }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+          <hr>
+          <h3>Formation</h3>
+          {% for formation in cv.formations.all %}
+          <div class="mb-3">
+            <h4>{{ formation.diplome }}</h4>
+            <p>{{ formation.etablissement }} | {{ formation.date_obtention }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
